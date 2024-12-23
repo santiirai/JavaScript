@@ -1,5 +1,8 @@
-// Write a javascript program to create an array of strings and use numeric sorting
-// to sort the strings in alphabetical order.Print the sorted array.
-const str = ["physics", "chemistry", "biology", "history", "geography"];
-str.sort();
-console.log(str);
+// Create an array of strings
+let fruits = ["Banana", "Apple", "Mango", "Cherry"];
+
+// Use sort() to sort the array alphabetically
+fruits.sort();
+
+// Print the sorted array
+console.log(fruits);

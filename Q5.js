@@ -1,9 +1,12 @@
-// Function to calculate BMI
-let result = calculateBMI(32,4);
 function calculateBMI(weight, height) {
-    if (weight <= 0 || height <= 0) {
-        return "Weight and height must be positive values.";
-    }
-    return (weight / (height * height));
+    // BMI formula: weight (kg) / (height (m) * height (m))
+    let bmi = weight / (height * height);
+    return bmi.toFixed(2); // returns the BMI value rounded to 2 decimal places
 }
-console.log(result)
+
+// Example usage
+let weight = 70; // in kilograms
+let height = 1.75; // in meters
+
+bmi = calculateBMI(weight, height);
+console.log("Your BMI is: " + bmi);
