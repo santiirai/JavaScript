@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form Validation</title>
+  <style>
+    .error { color: red; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <h2>Registration Form</h2>
+  <form id="registrationForm">
+    <!-- Email -->
+    <label>Email: </label>
+    <input type="text" id="email" required>
+    <span class="error" id="emailError"></span><br><br>
+
+    <!-- Age -->
+    <label>Age: </label>
+    <input type="text" id="age" required>
+    <span class="error" id="ageError"></span><br><br>
+
+    <!-- Password -->
+    <label>Password: </label>
+    <input type="password" id="password" required>
+    <span class="error" id="passwordError"></span><br><br>
+
+    <!-- Confirm Password -->
+    <label>Confirm Password: </label>
+    <input type="password" id="confirmPassword" required>
+    <span class="error" id="confirmPasswordError"></span><br><br>
+
+    <!-- Zip Code -->
+    <label>Zip Code: </label>
+    <input type="text" id="zipCode" required>
+    <span class="error" id="zipCodeError"></span><br><br>
+
+    <!-- URL -->
+    <label>Website URL: </label>
+    <input type="text" id="website" required>
+    <span class="error" id="websiteError"></span><br><br>
+
+    <!-- Date -->
+    <label>Date of Birth: </label>
+    <input type="date" id="dob" required>
+    <span class="error" id="dobError"></span><br><br>
+
+    <!-- File Upload -->
+    <label>Profile Picture: </label>
+    <input type="file" id="profilePicture" required>
+    <span class="error" id="fileError"></span><br><br>
+
+    <!-- Country -->
+    <label>Country: </label>
+    <select id="country" required>
+      <option value="">Select</option>
+      <option value="US">United States</option>
+      <option value="IN">India</option>
+      <option value="UK">United Kingdom</option>
+    </select>
+    <span class="error" id="countryError"></span><br><br>
+
+    <!-- Terms -->
+    <label>
+      <input type="checkbox" id="terms"> I agree to the terms and conditions
+    </label>
+    <span class="error" id="termsError"></span><br><br>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <script>
+    document.getElementById("registrationForm").addEventListener("submit", function(event) {
+      let isValid = true;
+
+      // Validate Email
+      const email = document.getElementById("email").value;
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        document.getElementById("emailError").textContent = "Invalid email format.";
+        isValid = false;
+      } else {
+        document.getElementById("emailError").textContent = "";
+      }
+
+      // Validate Age
+      const age = document.getElementById("age").value;
+      if (!/^\d+$/.test(age) || age < 1 || age > 120) {
+        document.getElementById("ageError").textContent = "Age must be a number between 1 and 120.";
+        isValid = false;
+      } else {
+        document.getElementById("ageError").textContent = "";
+      }
+
+      // Validate Password Strength
+      const password = document.getElementById("password").value;
+      const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+      if (!passwordPattern.test(password)) {
+        document.getElementById("passwordError").textContent = "Password must have at least 8 characters, including uppercase, lowercase, number, and special character.";
+        isValid = false;
+      } else {
+        document.getElementById("passwordError").textContent = "";
+      }
+
+      // Validate Confirm Password
+      const confirmPassword = document.getElementById("confirmPassword").value;
+      if (password !== confirmPassword) {
+        document.getElementById("confirmPasswordError").textContent = "Passwords do not match.";
+        isValid = false;
+      } else {
+        document.getElementById("confirmPasswordError").textContent = "";
+      }
+
+      // Validate Zip Code
+      const zipCode = document.getElementById("zipCode").value;
+      const zipCodePattern = /^\d{5}(-\d{4})?$/;
+      if (!zipCodePattern.test(zipCode)) {
+        document.getElementById("zipCodeError").textContent = "Invalid zip code format.";
+        isValid = false;
+      } else {
+        document.getElementById("zipCodeError").textContent = "";
+      }
+
+      // Validate Website URL
+      const website = document.getElementById("website").value;
+      const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+      if (!urlPattern.test(website)) {
+        document.getElementById("websiteError").textContent = "Invalid URL format.";
+        isValid = false;
+      } else {
+        document.getElementById("websiteError").textContent = "";
+      }
+
+      // Validate Date of Birth
+      const dob = new Date(document.getElementById("dob").value);
+      const today = new Date();
+      if (dob > today) {
+        document.getElementById("dobError").textContent = "Date cannot be in the future.";
+        isValid = false;
+      } else {
+        document.getElementById("dobError").textContent = "";
+      }
+
+      // Validate File Size (2MB limit)
+      const file = document.getElementById("profilePicture").files[0];
+      if (file && file.size > 2 * 1024 * 1024) {
+        document.getElementById("fileError").textContent = "File size must be less than 2MB.";
+        isValid = false;
+      } else {
+        document.getElementById("fileError").textContent = "";
+      }
+
+      // Validate Country Selection
+      const country = document.getElementById("country").value;
+      if (country === "") {
+        document.getElementById("countryError").textContent = "Please select a country.";
+        isValid = false;
+      } else {
+        document.getElementById("countryError").textContent = "";
+      }
+
+      // Validate Terms and Conditions Checkbox
+      const terms = document.getElementById("terms").checked;
+      if (!terms) {
+        document.getElementById("termsError").textContent = "You must agree to the terms and conditions.";
+        isValid = false;
+      } else {
+        document.getElementById("termsError").textContent = "";
+      }
+
+      // Prevent form submission if validation fails
+      if (!isValid) {
+        event.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
