@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Content Filtering</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background-color: #f0f4f8;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-top: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      background: linear-gradient(145deg, #ffffff, #e6e9ef);
+      border-radius: 15px;
+      box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    input, select, button {
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #d1d9e6;
+      border-radius: 8px;
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .filter-results div {
+      padding: 15px;
+      border: 1px solid #d1d9e6;
+      margin: 8px 0;
+      border-radius: 8px;
+      background: #f8f9fa;
+      transition: transform 0.3s ease;
+    }
+
+    .filter-results div:hover {
+      transform: scale(1.02);
+      background-color: #e3f2fd;
+    }
+
+    label {
+      font-size: 14px;
+      color: #2c3e50;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dynamic Content Filtering</h1>
+  <div class="container">
+    <label for="category">Category:</label>
+    <select id="category">
+      <option value="">All</option>
+      <option value="tech">Tech</option>
+      <option value="fashion">Fashion</option>
+      <option value="food">Food</option>
+    </select>
+
+    <label for="price">Max Price:</label>
+    <input type="number" id="price" placeholder="Enter max price">
+
+    <button id="applyFilters">Apply Filters</button>
+
+    <div id="filterResults" class="filter-results">
+      <div data-category="tech" data-price="100">Laptop - $100</div>
+      <div data-category="fashion" data-price="50">Shirt - $50</div>
+      <div data-category="food" data-price="10">Pizza - $10</div>
+      <div data-category="tech" data-price="200">Smartphone - $200</div>
+    </div>
+  </div>
+
+  <script>
+    const categorySelect = document.getElementById('category');
+    const priceInput = document.getElementById('price');
+    const applyFiltersButton = document.getElementById('applyFilters');
+    const filterResults = document.getElementById('filterResults');
+
+    applyFiltersButton.addEventListener('click', () => {
+      const category = categorySelect.value;
+      const maxPrice = parseFloat(priceInput.value);
+      const items = filterResults.querySelectorAll('div');
+
+      items.forEach(item => {
+        const itemCategory = item.getAttribute('data-category');
+        const itemPrice = parseFloat(item.getAttribute('data-price'));
+
+        if ((category === '' || itemCategory === category) && (isNaN(maxPrice) || itemPrice <= maxPrice)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
