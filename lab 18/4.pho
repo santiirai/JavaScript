@@ -1,0 +1,35 @@
+<!-- Include and require file in php.
+● Create two PHP files: header.php and footer.php.
+● Use include and require to include these files into another PHP script.
+● Explain when it's appropriate to use include_once and require_once
+instead of include and require. -->
+<?php
+// Header section as a simulated included file
+function headerSection() {
+    echo "<header style='background-color: #f8f9fa; padding: 10px; text-align: center;'>
+            <h1>Welcome to My Website</h1>
+            <p>Learning PHP is fun!</p>
+          </header>";
+}
+
+// Footer section as a simulated required file
+function footerSection() {
+    echo "<footer style='background-color: #f8f9fa; padding: 10px; text-align: center; margin-top: 20px;'>
+            <p>&copy; " . date("Y") . " My Website. All Rights Reserved.</p>
+          </footer>";
+}
+
+// Simulate including the header
+include_once 'header_simulated.php'; // Simulating with a function call
+headerSection();
+
+// Main content
+echo "<main style='padding: 20px; text-align: center;'>
+        <h2>Main Content Area</h2>
+        <p>This is the main body of the website.</p>
+      </main>";
+
+// Simulate requiring the footer
+require_once 'footer_simulated.php'; // Simulating with a function call
+footerSection();
+?>
