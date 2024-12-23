@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #todoList {
+      list-style-type: none;
+      padding: 0;
+    }
+    .task {
+      padding: 8px;
+      margin: 4px;
+      border: 1px solid #ccc;
+      display: flex;
+      justify-content: space-between;
+    }
+    .completed {
+      text-decoration: line-through;
+      color: grey;
+    }
+    button {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: darkred;
+    }
+  </style>
+</head>
+<body>
+  <h2>To-Do List</h2>
+  
+  <!-- Input field and Add button -->
+  <input type="text" id="taskInput" placeholder="Add a new task">
+  <button id="addTaskBtn">Add Task</button>
+  
+  <ul id="todoList">
+    <!-- List of tasks will appear here -->
+  </ul>
+
+  <script>
+    // Get elements from the DOM
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const taskInput = document.getElementById('taskInput');
+    const todoList = document.getElementById('todoList');
+
+    // Event to add a task when the button is clicked
+    addTaskBtn.addEventListener('click', () => {
+      const taskText = taskInput.value.trim();
+      
+      if (taskText !== '') {
+        // Create a new list item
+        const newTask = document.createElement('li');
+        newTask.classList.add('task');
+        
+        // Add task text
+        newTask.innerHTML = `
+          <span>${taskText}</span>
+          <button class="deleteBtn">Delete</button>
+        `;
+        
+        // Add event to mark task as completed when clicked
+        newTask.querySelector('span').addEventListener('click', () => {
+          newTask.querySelector('span').classList.toggle('completed');
+        });
+
+        // Add event to delete task when the delete button is clicked
+        newTask.querySelector('.deleteBtn').addEventListener('click', () => {
+          todoList.removeChild(newTask);
+        });
+
+        // Append the new task to the todo list
+        todoList.appendChild(newTask);
+        
+        // Clear the input field
+        taskInput.value = '';
+      }
+    });
+  </script>
+</body>
+</html>
